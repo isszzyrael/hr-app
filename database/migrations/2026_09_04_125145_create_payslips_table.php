@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('payslips', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
+            $table->date('pay_period_start');
+            $table->date('pay_period_end');
+            $table->decimal('gross_pay', 12, 2);
+            $table->decimal('net_pay', 12, 2);
+            $table->decimal('deductions', 12, 2)->default(0);
+            $table->timestamp('issued_at')->nullable();
             $table->timestamps();
         });
     }

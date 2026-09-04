@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
+            $table->date('work_date');
+            $table->time('clock_in')->nullable();
+            $table->time('clock_out')->nullable();
+            $table->string('status')->default('present'); //present, absent, leave
             $table->timestamps();
+            $table->unique(['employee_id', 'work_date']); // Ensure unique attendance record per employee per day
         });
     }
 

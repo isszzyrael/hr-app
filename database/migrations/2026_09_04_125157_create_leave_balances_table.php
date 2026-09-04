@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('leave_balances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('leave_type_id')->constrained()->cascadeOnDelete();
+            $table->unsignedSmallInteger('year');
+            $table->unsignedSmallInteger('entitled_days')->default(0);
+            $table->unsignedSmallInteger('used_days')->default(0);
             $table->timestamps();
+
+            $table->unique(['employee_id', 'leave_type_id', 'year']); // Ensure unique leave balance per employee, leave type, and year
         });
     }
 

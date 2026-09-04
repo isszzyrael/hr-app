@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('leave_requests', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete('cascade');
+            $table->foreignId('leave_type_id')->constrained()->cascadeOnDelete('cascade');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->unsignedSmallInteger('days');
+            $table->text('reason')->nullable();
+            $table->string('status')->default('pending'); //approved, rejected, pending
+            $table->foreignId('reviewer_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamps('reviewed_at')->nullable();
+            $table->text('review_note')->nullable();
             $table->timestamps();
         });
     }
