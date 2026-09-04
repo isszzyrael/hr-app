@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('reason')->nullable();
             $table->string('status')->default('pending'); //approved, rejected, pending
             $table->foreignId('reviewer_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->timestamps('reviewed_at')->nullable();
+            $table->timestamp('reviewed_at')->nullable();
             $table->text('review_note')->nullable();
             $table->timestamps();
         });

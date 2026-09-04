@@ -5,8 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[fillable(['name', 'code', 'description'])]
+
 class Department extends Model
 {
     /** @use HasFactory<\Database\Factories\DepartmentFactory> */
     use HasFactory;
+}
+
+public function positions(): HasMany
+{
+    return $this->hasMany(Position::class);
+}
+
+public function employees(): HasMany
+{
+    return $this->hasMany(Employee::class);
 }
