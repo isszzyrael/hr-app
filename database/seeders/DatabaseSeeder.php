@@ -138,5 +138,15 @@ class DatabaseSeeder extends Seeder
             'manager_id' => $managers->first()->id,
         ]);
 
+        for ($i = 0; $i < 30; $i++) {
+           $department = $departments->random();
+           $position = $positions->where('department_id', $department->id)->random();
+
+           Employee::factory()->create([
+               'department_id' => $department->id,
+               'position_id' => $position->id,
+               'manager_id' => $managers->random()->id,
+           ]);
+        
     }
 }
