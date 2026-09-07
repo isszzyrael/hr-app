@@ -113,5 +113,30 @@ class DatabaseSeeder extends Seeder
             }
         }
 
+// a few managers for each department and position
+        $managers = collect();
+        foreach ($departments as $i => $department) {
+            $managerPosition = $department->position()
+            ->where('title', 'like', '%Manager%')->first() ?? $department->position()->first();  
+
+
+        $managers = Employee::factory()->count(5)->create([
+            'user_id' => $i === 0 ? $manager->id : null,
+            'department_id' => $departments->id,
+            'position_id' => $positions->id,
+            'manager_id' => null,
+        ]);
+
+        // Employees demo to real account for each department and position
+        Employee::factory()->create([
+            'user_id' => $employee->id,
+            'first_name' => 'Adebayo',
+            'last_name' => 'Employee',
+            'email' => 'employee@hr.com',
+            'department_id' => $department->first()->id,
+            'position_id' => $position->first()->id,
+            'manager_id' => $managers->first()->id,
+        ]);
+
     }
 }
